@@ -5,15 +5,16 @@ def the_game():
 
     def restart_game():
         while True:
-            restart = input("Would you like to play again? y = Yes and n = No").strip().lower()
+            restart = input("Would you like to play again? (y = Yes and n = No): ").strip().lower()
             if restart == "y":
-                break
+                os.system('cls')
+                return the_game()
             elif restart == "n":
                 print("Thanks for playing.")
                 break
             else:
                 print("Input is not valid.")
-        return the_game()
+        
 
     #Sets player variables
     player1 = 'Player1' # player1 name 
@@ -77,21 +78,22 @@ def the_game():
         #Game loop
         while turn_count < 9:
             #Choice definition
-            choice = input(f'{players[current_player]} please make your choice.')
+            choice = input(f'{players[current_player]} please make your choice. ')
             choice = choice_check(choice)
             if board[choice] == ' ':
                 if current_player == 0:
                     board[choice] = 'X'
                 else: 
-                    board[choice] = '0' 
+                    board[choice] = '0'
                 if check_win():
-                    display(board)
                     print(f"Congratulations {players[current_player]}, you have won!")
-                    restart_game()
+                    display(board)
                 current_player = 1 - current_player
                 turn_count += 1
                 display(board)
             else:
                 print("This spot is already taken, please choose another.")
+        print("Tie game!")
     game_loop()
+    restart_game()
 the_game()
